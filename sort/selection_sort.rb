@@ -1,8 +1,7 @@
 # Complexity is about O(n^2)
 # Calculation
 # n + (n-1) + (n-2).. --> n-n = Total Comparisons needed for each element
-# O(1) * Total Comparison = Total Number of Swaps
-
+# (n-1) + (n-2) + (n-3) --> n-n = Total Number of Swaps
 
 # Integer comparison implementation
 # Gist of how this works - Remember the index of the lowest number of each iterations, and
