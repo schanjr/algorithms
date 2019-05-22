@@ -13,11 +13,10 @@ def bubble_sort(array)
   until sorted
     sorted = true
     (0..(unsorted_until_index - 1)).each do |index|
-      if array[index] > array[index + 1]
-        sorted = false
-        # Swap places with next element if is bigger
-        array[index], array[index + 1] = array[index + 1], array[index]
-      end
+      next unless array[index] > array[index + 1]
+      sorted = false
+      # Swap places with next element if is bigger
+      array[index], array[index + 1] = array[index + 1], array[index]
     end
     # After first pass through is over, we guaranteed that the last element is the biggest number,
     #   so no need to sort the last element.
