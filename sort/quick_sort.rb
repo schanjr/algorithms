@@ -7,6 +7,9 @@
 # We continue this process until the pointers are pointing to the very same value or the left pointer has moved to the right of the right pointer.
 #
 # Finally, we swap the pivot with the value that the left pointer is currently pointing to.
+#
+
+# Quick sort is the default sort algorithm for standard libraries.
 class SortableArray
   attr_reader :array
 
