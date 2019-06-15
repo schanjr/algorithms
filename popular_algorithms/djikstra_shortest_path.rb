@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-# Traveling salesman problem
+# Dijkstra’s algorithm (pronounced “dike’ struh”)
+# Also known asTraveling salesman problem
+
 class City
   attr_accessor :name, :routes
 
@@ -68,7 +70,7 @@ def dijkstra(starting_city, other_cities)
   # We launch the heart of the algorithm, which is a loop that visits
   # each city:
   while current_city
-
+    puts "Current_city: #{current_city.name}"
     # We officially visit the current city:
     visited_cities << current_city
 
@@ -76,11 +78,9 @@ def dijkstra(starting_city, other_cities)
     current_city.routes.each do |city, price_info|
       # If the route from the starting city to the other city
       # is cheaper than currently recorded in routes_from_city, we update it:
-      next unless routes_from_city[city][0] > price_info +
-                                              routes_from_city[current_city][0]
+      next unless routes_from_city[city][0] > price_info + routes_from_city[current_city][0]
 
-      routes_from_city[city] =
-        [price_info + routes_from_city[current_city][0], current_city]
+      routes_from_city[city] = [price_info + routes_from_city[current_city][0], current_city]
     end
 
     # We determine which city to visit next:
@@ -90,8 +90,7 @@ def dijkstra(starting_city, other_cities)
     routes_from_city.each do |city, price_info|
       # if this route is the cheapest from this city, and it has not yet been
       # visited, it should be marked as the city we'll visit next:
-      next unless price_info[0] < cheapest_route_from_current_city &&
-                  !visited_cities.include?(city)
+      next unless price_info[0] < cheapest_route_from_current_city && !visited_cities.include?(city)
 
       cheapest_route_from_current_city = price_info[0]
       current_city = city
