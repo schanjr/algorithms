@@ -20,7 +20,6 @@ class SortableArray
   def partition!(left_pointer, right_pointer)
     return if right_pointer - left_pointer <= 0
 
-
     # We always choose the right most element as the pivot
     pivot_position = right_pointer
     pivot = @array[pivot_position]
