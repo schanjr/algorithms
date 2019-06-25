@@ -1,14 +1,13 @@
-class Calculator():
-    def divisorSum(self, n):
-        sum = 0
-        for i in range(1, 6):
-            if n % i == 0:
-                sum += i
-                print(sum)
-            else:
-                pass
-        return sum
+def prime_or_not(num):
+    if num < 2: return 'Not prime'
+    if num == 2: return 'Prime'
+    power = pow(2, num - 1)
+    if power % num == 1:
+        return 'Prime'
+    else:
+        return 'Not prime'
 
 
-cal = Calculator()
-print(cal.divisorSum(6))
+
+
+print(prime_or_not(7))

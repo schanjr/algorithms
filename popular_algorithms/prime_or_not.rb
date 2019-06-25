@@ -1,3 +1,6 @@
+# one of the fastest prime or not algorithms.
+# Time complexity: log base 6(n)?
+
 def prime_or_not(num)
   return 'Prime' if is_prime(num)
   return 'Not prime'
