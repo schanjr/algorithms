@@ -1,4 +1,3 @@
-require 'benchmark'
 require 'set'
 require_relative '../support_tools/easy_benchmark'
 
@@ -29,4 +28,6 @@ input = 'abcdefghijklmnop!#@$%^qrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZA'
 
 test1 = ['Set', :set_unique_string?]
 test2 = ['Bitwise', :bitwise_unique_string?]
+
 EasyBenchmark.benchmark_time([test1,test2], input)
+
