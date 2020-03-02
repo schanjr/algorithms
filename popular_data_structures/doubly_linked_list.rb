@@ -75,5 +75,6 @@ end
 
 my_list.insert_head(33)
 my_list.display_next(my_list.first_node)
+puts
 my_list.insert_tail(66)
-my_list.display_next(my_list.last_node)
+my_list.display_next(my_list.first_node)
