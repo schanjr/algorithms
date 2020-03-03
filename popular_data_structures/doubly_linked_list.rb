@@ -8,6 +8,14 @@ class Node
   end
 end
 
+
+# Uses of doubly linked list
+# - A music player which has next and prev buttons.
+# - Represent a deck of cards in a game.
+# - The browser cache which allows you to hit the BACK-FORWARD pages.
+# - Applications that have a Most Recently Used list (a linked list of file names)
+# - Undo-Redo functionality
+
 # This implementation is memory intensive
 class DoublyLinkedList
   attr_accessor :first_node, :last_node
