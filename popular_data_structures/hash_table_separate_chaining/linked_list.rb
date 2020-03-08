@@ -55,7 +55,7 @@ class LinkedList
         remove_tail
       else
         t_n = @head
-        while !t_n.nil? && t_n.next != node
+        while !t_n.nil? && t_n.next != new_n
           t_n = t_n.next
         end
         if t_n.next == new_n
@@ -99,6 +99,7 @@ class LinkedList
     c_n
   end
 
+  # TODO Nooooo!!! You should memoize this!!!!
   def size
     x = 0
     if !@head.nil?

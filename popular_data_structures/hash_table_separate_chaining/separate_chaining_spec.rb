@@ -2,29 +2,13 @@ include RSpec
 
 require_relative 'separate_chaining'
 
-RSpec.describe SeparateChaining, type: Class do
+RSpec.xdescribe SeparateChaining, type: Class do
   let(:star_wars_movies) { SeparateChaining.new(6) }
 
-  before do
-    star_wars_movies["Star Wars: The Phantom Menace"] = "Number One"
-    star_wars_movies["Star Wars: Attack of the Clones"] = "Number Two"
-    star_wars_movies["Star Wars: Revenge of the Sith"] = "Number Three"
-    star_wars_movies["Star Wars: A New Hope"] = "Number Four"
-    star_wars_movies["Star Wars: The Empire Strikes Back"] = "Number Five"
-    star_wars_movies["Star Wars: Return of the Jedi"] = "Number Six"
-  end
-
-  describe "#index" do
+  describe "#index_by_size" do
     it "creates a hash key based on the string value passed in" do
-      i = star_wars_movies.index("Star Wars: A New Hope", 6)
+      i = star_wars_movies.index_by_size("Star Wars: A New Hope", 6)
       expect(i).to eq 4
-    end
-  end
-
-  describe "#key" do
-    it "returns the sum of the ascii values of the string value" do
-      key = "test"
-      expect(star_wars_movies.index(key, 6)).to eq 4
     end
   end
 
@@ -44,6 +28,7 @@ RSpec.describe SeparateChaining, type: Class do
       star_wars_movies["Star Wars: A New Hope"] = "Number Four"
       star_wars_movies["Star Wars: The Empire Strikes Back"] = "Number Five"
       star_wars_movies["Star Wars: Return of the Jedi"] = "Number Six"
+
       expect(star_wars_movies["Star Wars: The Phantom Menace"]).to eq "Number One"
       expect(star_wars_movies["Star Wars: Attack of the Clones"]).to eq "Number Two"
       expect(star_wars_movies["Star Wars: Revenge of the Sith"]).to eq "Number Three"
@@ -100,5 +85,29 @@ RSpec.describe SeparateChaining, type: Class do
       expect(movies["Empire Strikes Back"]).to eq "Excellent"
       expect(movies["Return of the Jedi"]).to eq "The Best"
     end
+  end
+end
+
+RSpec.describe '#Algo Evaluation' do
+  h = SeparateChaining.new(2)
+  1..(100000).times do |e|
+
+    if e == 1000
+      puts
+    end
+
+    if e == 5000
+      puts
+    end
+
+    if e == 10000
+      puts
+    end
+
+    if e == 25000
+      puts
+    end
+
+    h[e.to_s] = e
   end
 end
