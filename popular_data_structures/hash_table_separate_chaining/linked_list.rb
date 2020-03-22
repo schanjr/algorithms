@@ -4,20 +4,22 @@ class LinkedList
   attr_accessor :head
   attr_accessor :tail
 
-  def initialize()
+  def initialize
     @head = nil
     @tail = nil
+    @length = 0
   end
 
   # This method creates a new `Node` using `data`, and inserts it at the end of the list.
   def add_to_tail(new_n)
     if @head.nil?
       @head = new_n
-      @tail = @head
+      @tail = new_n
     else
       @tail.next = new_n
       @tail = new_n
     end
+    @length += 1
   end
 
   # This method removes the last node in the lists and must keep the rest of the list intact.
@@ -33,6 +35,7 @@ class LinkedList
       @tail = new_n
       @tail.next = nil
     end
+    @length -= 1
   end
 
   # This method prints out a representation of the list.
@@ -46,20 +49,22 @@ class LinkedList
     end
   end
 
-  # This method removes `node` from the list and must keep the rest of the list intact.
   def delete(new_n)
-    if !@head.nil?
+    if !@head.nil? # O(1)
       if @head === new_n
         remove_front
-      elsif @tail === new_n
+      elsif @tail === new_n # O(1)
         remove_tail
-      else
-        t_n = @head
-        while !t_n.nil? && t_n.next != new_n
-          t_n = t_n.next
+      else # The infamous separate chaining O(N)
+        current_node = @head
+        while !current_node.nil? && current_node.next.key != new_n.key
+          current_node = current_node.next
         end
-        if t_n.next == new_n
-          t_n.next = t_n.next.next
+        if !current_node.next.next.nil?
+          next_next_node = current_node.next.next
+          current_node.next = next_next_node
+        else
+          puts 'something probably went wrong'
         end
       end
     end
@@ -73,22 +78,27 @@ class LinkedList
     if @tail.nil?
       @tail = new_n
     end
+    @length += 1
   end
 
   # This method removes and returns the first node in the Linked List and must set Linked List's head to the second node.
   def remove_front
+    if @head.nil?
+      puts "Bro, there is nothing to remove"
+      return
+    end
     new_n = @head
     if @head === @tail
-      @head  = nil
+      @head = nil
       @tail = nil
     elsif !@head.nil?
       @head = new_n.next
-
       if @head.next.nil?
         @tail = @head
       end
     end
-    return new_n
+    @length -= 1
+    new_n
   end
 
   def find_node(key)
@@ -99,17 +109,7 @@ class LinkedList
     c_n
   end
 
-  # TODO Nooooo!!! You should memoize this!!!!
   def size
-    x = 0
-    if !@head.nil?
-      x = 1
-      n = @head
-      while n != @tail
-        n = n.next
-        x += 1
-      end
-    end
-    return x
+    @length
   end
 end

@@ -8,37 +8,33 @@ require_relative 'linked_list'
 
 class SeparateChaining
   attr_reader :max_load_factor
-  attr_writer :items
+  attr_accessor :items, :size
 
   def initialize(size)
     @max_load_factor = 0.7
     @items = Array.new(size)
+    @size = @items.size
   end
 
   def []=(key, value)
     new_n = Node.new(key, value)
-    i = index(key, self.size)
+    i = index(key, @size)
     in_list = @items[i]
     if in_list.nil?
       list = LinkedList.new
       list.add_to_tail(new_n)
       @items[i] = list
     elsif in_list
-      if in_list.size < 5
-        node = @items[i].find_node(key)
-        @items[i].delete(node) if node
-        @items[i].add_to_tail(new_n)
-      end
-    else
-      self.resize
-      modify_hash(@items, self.size, key, value)
+      node = @items[i].find_node(key)
+      @items[i].delete(node) if node
+      @items[i].add_to_tail(new_n)
     end
 
     self.resize if load_factor > @max_load_factor
   end
 
   def [](key)
-    i = index(key, self.size)
+    i = index(key, @size)
     if !@items[i].nil?
       node = @items[i].find_node(key)
       if !node.value.nil?
@@ -50,21 +46,37 @@ class SeparateChaining
   # Returns a unique, deterministically reproducible index into an array
   # We are hashing based on strings, let's use the ascii value of each string as
   # a starting point.
-  def index(key, size)
-    index_by_size(key, size)
-    # index_by_prime(key, size)
+  def index(key, input_size)
+    index_modulus_method(key, input_size)
+    # index_division_method(key, input_size)
+    # index_division_method2(key, input_size)
   end
 
-  def index_by_prime(key, size)
-    collision_threshold = (size / 3)
+  def index_multiplication_method(key, input_size)
+
+  end
+
+  # Introduction to Algorithms 3rd Edition - Cormen, Leiserson, Rivest, Stein
+  # 11.3
+  def index_division_method(key, input_size)
+    return 3 if input_size <= 3
+    key_sum = key.sum
+    collision_threshold = input_size / 3
     prime_number = find_closest_prime(collision_threshold)
-    key.sum % prime_number
+    index = key_sum % prime_number
+    index
+  end
+
+  def index_division_method2(key, input_size)
+    # Formula = h(k) = (2k + 3) % size
+    key_sum = key.sum
+    h_k = (key_sum * 2) + 3
+    h_k % input_size
   end
 
   def find_closest_prime(num)
-    num = 5 if num < 5
     until is_prime(num)
-      num += 1
+      num -= 1
     end
     num
   end
@@ -81,7 +93,7 @@ class SeparateChaining
     return true
   end
 
-  def index_by_size(key, size)
+  def index_modulus_method(key, size)
     key.sum % size
   end
 
@@ -99,13 +111,14 @@ class SeparateChaining
 
   # Simple method to return the number of items in the hash
   def size
-    @items.length
+    @size
   end
 
   # Resize the hash
   def resize
+    puts "-----------------------------RESIZE----------------------------------------"
+    new_size = size * 2
     old_l = @items.compact
-    new_size = self.size * 2
     new_l = Array.new(new_size)
     old_l.each do |list|
       while list.size > 0
@@ -113,14 +126,18 @@ class SeparateChaining
         modify_hash(new_l, new_size, new_n.key, new_n.value)
       end
     end
+    puts "-----------------------------RESIZE COMPLETE----------------------------------------"
     @items = new_l
+    @size = new_size
   end
 
-  def modify_hash(list, size, key, value)
-    i = index(key, size)
+  def modify_hash(list, input_size, key, value)
+    i = index(key, input_size)
     new_n = Node.new(key, value)
-    in_list = list[i]
+    in_list = list.slice(i)
     if in_list
+      node = in_list.find_node(key)
+      in_list.delete(node) if node
       in_list.add_to_tail(new_n)
     else
       ll = LinkedList.new

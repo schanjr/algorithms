@@ -7,7 +7,7 @@ RSpec.xdescribe SeparateChaining, type: Class do
 
   describe "#index_by_size" do
     it "creates a hash key based on the string value passed in" do
-      i = star_wars_movies.index_by_size("Star Wars: A New Hope", 6)
+      i = star_wars_movies.index_modulus_method("Star Wars: A New Hope", 6)
       expect(i).to eq 4
     end
   end
@@ -88,26 +88,43 @@ RSpec.xdescribe SeparateChaining, type: Class do
   end
 end
 
-RSpec.describe '#Algo Evaluation' do
-  h = SeparateChaining.new(2)
-  1..(100000).times do |e|
-
-    if e == 1000
-      puts
-    end
-
-    if e == 5000
-      puts
-    end
-
-    if e == 10000
-      puts
-    end
-
-    if e == 25000
-      puts
-    end
-
+RSpec.describe '#Algo Evaluation storing ascending numbers' do
+  h = SeparateChaining.new(8)
+  1..(15000).times do |e|
     h[e.to_s] = e
+    if e % 100 == 0
+      items_compact = h.items.compact
+      linked_list_sizes = {}
+      items_compact.each do |ll|
+        linked_list_sizes[ll.size.to_s] ||= 0
+        linked_list_sizes[ll.size.to_s] += 1
+      end
+      puts "Size of hash: #{h.size}"
+      puts "Occupied items #{items_compact.size}"
+      puts "Distribution of LinkedList entries #{linked_list_sizes}"
+    end
+  end
+end
+
+RSpec.describe '#Algo Evaluation - storing random characters' do
+  h = SeparateChaining.new(8)
+  size_of_word = 60
+  start_random = 48
+  end_random = 126
+
+  1.upto(size_of_word) do |char_size|
+    1.upto(50) do |_same_char_length_loop|
+      random_characters = (1..char_size).map {|_n| rand(start_random..end_random).chr}.join('')
+      h[random_characters] = 'hello world'
+    end
+    items_compact = h.items.compact
+    linked_list_sizes = {}
+    items_compact.each do |ll|
+      linked_list_sizes[ll.size.to_s] ||= 0
+      linked_list_sizes[ll.size.to_s] += 1
+    end
+    puts "Size of hash: #{h.size}"
+    puts "Occupied items #{items_compact.size}"
+    puts "Distribution of LinkedList entries #{linked_list_sizes}"
   end
 end
