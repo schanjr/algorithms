@@ -88,7 +88,7 @@ RSpec.xdescribe SeparateChaining, type: Class do
   end
 end
 
-RSpec.describe '#Algo Evaluation storing ascending numbers' do
+RSpec.xdescribe '#Algo Evaluation storing ascending numbers' do
   h = SeparateChaining.new(8)
   1..(15000).times do |e|
     h[e.to_s] = e

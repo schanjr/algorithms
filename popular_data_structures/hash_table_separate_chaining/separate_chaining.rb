@@ -1,12 +1,10 @@
 require_relative 'node'
 require_relative 'linked_list'
-
-# A majority of the code is taken from https://github.com/mdjaved1/Sep_dec
-# though there are bugs in its original implementation, I tried to make sure it works.
-
-# There is still a weird bug where data is lost everytime we create large entries...
+require_relative 'universal_hash'
 
 class SeparateChaining
+  include UniversalHash
+
   attr_reader :max_load_factor
   attr_accessor :items, :size
 
@@ -14,6 +12,11 @@ class SeparateChaining
     @max_load_factor = 0.7
     @items = Array.new(size)
     @size = @items.size
+    @hash_algorithm = choose_hash_function
+  end
+
+  def choose_hash_function
+    rand(@@HASH_ALGORITHMS.size - 1)
   end
 
   def []=(key, value)
@@ -47,54 +50,7 @@ class SeparateChaining
   # We are hashing based on strings, let's use the ascii value of each string as
   # a starting point.
   def index(key, input_size)
-    index_modulus_method(key, input_size)
-    # index_division_method(key, input_size)
-    # index_division_method2(key, input_size)
-  end
-
-  def index_multiplication_method(key, input_size)
-
-  end
-
-  # Introduction to Algorithms 3rd Edition - Cormen, Leiserson, Rivest, Stein
-  # 11.3
-  def index_division_method(key, input_size)
-    return 3 if input_size <= 3
-    key_sum = key.sum
-    collision_threshold = input_size / 3
-    prime_number = find_closest_prime(collision_threshold)
-    index = key_sum % prime_number
-    index
-  end
-
-  def index_division_method2(key, input_size)
-    # Formula = h(k) = (2k + 3) % size
-    key_sum = key.sum
-    h_k = (key_sum * 2) + 3
-    h_k % input_size
-  end
-
-  def find_closest_prime(num)
-    until is_prime(num)
-      num -= 1
-    end
-    num
-  end
-
-  def is_prime(n)
-    return false if n <= 1
-    return true if n <= 3
-    return false if ((n % 2) == 0) || ((n % 3) == 0)
-    i = 5
-    while i * i <= n
-      return false if n % i == 0 || n % (i + 2) == 0
-      i += 6
-    end
-    return true
-  end
-
-  def index_modulus_method(key, size)
-    key.sum % size
+    universal_hashing(key, input_size)
   end
 
   # Calculate the current load factor
@@ -129,6 +85,7 @@ class SeparateChaining
     puts "-----------------------------RESIZE COMPLETE----------------------------------------"
     @items = new_l
     @size = new_size
+    @hash_algorithm = choose_hash_function
   end
 
   def modify_hash(list, input_size, key, value)
