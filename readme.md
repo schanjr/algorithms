@@ -1,3 +1,3 @@
-# A Repository of Algorithms and Its Implementations
+# A Collection of Algorithms and Data Structures
 
 ![image info](./assets/bigOCheatSheet.png)
