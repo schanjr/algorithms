@@ -10,4 +10,8 @@ class Node
   def deleted?
     @deleted
   end
+
+  def delete
+    @deleted = true
+  end
 end
