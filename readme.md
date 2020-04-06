@@ -1,3 +1,3 @@
-# A Repository of Algorithms and Its implementations
+# A Repository of Algorithms and Its Implementations
 
-Work in progress....
+![image info](./assets/bigOCheatSheet.png)
