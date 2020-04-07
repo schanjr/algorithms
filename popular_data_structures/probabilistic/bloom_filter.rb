@@ -1,4 +1,5 @@
 require 'zlib'
+require 'murmurhash3'
 require 'bitarray'
 
 class BloomFilter
@@ -21,7 +22,14 @@ class BloomFilter
   end
 
   def indexes_for(key)
-    hash_functions.times.map { |i| Zlib.crc32("#{key.to_s.strip.downcase}:#{i+seed}") % size }
+    hash_functions.times.map do |i|
+      hash_algorithm(key.to_s.strip.downcase, seed + i) % size
+    end
+  end
+
+  def hash_algorithm(key, seed)
+    # Zlib.crc32("#{key}:#{seed}")
+    MurmurHash3::V32.str_hash(key, seed)
   end
 
   def hash_functions

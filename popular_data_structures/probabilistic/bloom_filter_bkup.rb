@@ -5,7 +5,7 @@ class BloomFilter
 
   # Our false positive rate will be approximately ((1-e)^-kn/m)k
   # e = Mathematical constant
-  # m = size of our bit
+  # m = size of our bit, also the storage required for BloomFilter.
   # k = the number of hash functions
   # n = number of inputs
 
@@ -37,7 +37,7 @@ class BloomFilter
     # https://programming.guide/bloom-filter-calculator.html
     # Generates number of random numbers to be used as different hash functions using below formula
     # k = mlog(2)/n
-    k = ((@m * Math.log(2)) / @n).ceil
+    k = (0.7 * (@m / @n)).ceil
     puts "Generate #{k} hash functions"
     k
   end
