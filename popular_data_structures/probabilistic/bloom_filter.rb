@@ -4,7 +4,7 @@ require 'bitarray'
 
 class BloomFilter
   # https://www.igvita.com/2008/12/27/scalable-datasets-bloom-filters-in-ruby/
-  # http://www.igvita.com/2008/12/27/scalable-datasets-bloom-filters-in-ruby/
+  # https://sg.godaddy.com/engineering/2018/09/11/redis-ruby-bloom-filter/
   # 10 bits for 1% error approximation
   # ~5 bits per 10 fold reduction in error approximation
   BITS_PER_ERROR_RATE = {
