@@ -14,4 +14,4 @@ accessed without being blocked.
 - Inserts can be done dynamically without re-referencing multiples nodes such as the downside when balancing trees on tree related data structures. 
 - Skiplist by default is sorted. 
 
-![Skip List Animation](./skip_list_animation.gif)
+![Skip List Animation](./assets/skip_list_animation.gif)

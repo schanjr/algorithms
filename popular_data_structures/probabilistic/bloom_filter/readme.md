@@ -13,13 +13,13 @@ number of hash functions used h(x) * O(1). A better question is, what is the com
  - Blacklist IP addresses from reaching your website or going through fire walls. (The great fire wall?)
 
 1. Compute results that finger prints the bit array. The hash function being used for a same given input should be reproducible. 
-![Insertion](./bm_insertion.gif)
+![Insertion](./assets/bm_insertion.gif)
 2. That means if "banana" comes back again, it would create the same fingerprint. 
-![Membership Querying](./bm_membership.png)
+![Membership Querying](./assets/bm_membership.png)
 3. If a different string comes in, we compute the finger prints again and compare it with the bit array. All of the bits need flip to "true" to be sure that the string was never recorded.
-![Membership Querying 2](./bm_membership2.png)
+![Membership Querying 2](./assets/bm_membership2.png)
 4. There's possibility of false positives when an input that was never stored into bloom filter. This should be taken into account when using this data structure. (dependent on your initial memory allocation for actual percentage, there is a mathematical formula for this).
-![False Positive](././bm_fp.png)
+![False Positive](./assets/bm_fp.png)
 
 Regarding the 4th point itself, an additional work can be done to reduce false positives from let's say 1% to almost 0 which is rebuilding 
 Bloom Filters if it gets too big. The typical downside of bloom filter is that hash functions sometimes creates 
