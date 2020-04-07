@@ -1,5 +1,5 @@
 ## SkipList
-_When there is a need of using Binary Search Trees, prefer skip list._ 
+_When there is a need of using Binary Search Trees in multi threaded environment, prefer skip list._ 
 
 
 ## Time Complexity Analysis
@@ -9,8 +9,8 @@ What is the time complexity with two layers? The worst case time complexity is n
    The time complexity of skip lists can be reduced further by adding more layers. In fact, the time complexity of search, insert and delete can become O(Logn) in average case with √n extra space.
 
 ## Use Cases
-- SkipList is great for multi threaded environments where the value can be 
-accessed without being blocked.
+- SkipList is great for multi threaded environments where the values can be 
+accessed without being blocked due to thread locks.
 - Inserts can be done dynamically without re-referencing multiples nodes such as the downside when balancing trees on tree related data structures. 
 - Skiplist by default is sorted. 
 
