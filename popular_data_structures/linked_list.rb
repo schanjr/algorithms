@@ -71,7 +71,7 @@ end
 
 my_list = LinkedList.new(1)
 [1,2,2,2,3,3,4].each do |data|
-  mylist.insert_end(data)
+  my_list.insert_end(data)
 end
 my_list.removeDuplicates
 my_list.display
