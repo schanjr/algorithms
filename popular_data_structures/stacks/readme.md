@@ -21,5 +21,3 @@ Pushing onto the stack can be implemented by appending a new element to the dyna
 - Can be implemented as "Undo" storing command for systems. (The "Redo" command would be another stack storing the output of the "Undo" stack) 
 
 ![Stacks](./assets/lifo.png)
-
---credits https://stackoverflow.com/questions/7477181/array-based-vs-list-based-stacks-and-queues

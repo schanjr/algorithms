@@ -1,4 +1,4 @@
-# Most amazing implementation.
+# Best implementation I've done so far.
 
 class Stacks < Array
   alias :enqueue :push
