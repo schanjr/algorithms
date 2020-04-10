@@ -16,7 +16,7 @@ end
 class LinkedList
   attr_accessor :first_node
 
-  def initialize(data)
+  def initialize(data = nil)
     @first_node = Node.new(data)
   end
 
@@ -41,7 +41,15 @@ class LinkedList
     @first_node
   end
 
+  # O(1)
+  def remove_front
+    node = @first_node
+    @first_node = @first_node.next
+    node
+  end
+
   def display(head = @first_node)
+    puts
     current = head
     while current
       print current.data, " "
@@ -49,7 +57,7 @@ class LinkedList
     end
   end
 
-  def removeDuplicates()
+  def remove_duplicates
     head = @first_node
     array = []
     return if head.nil?
@@ -69,12 +77,12 @@ class LinkedList
 
 end
 
-my_list = LinkedList.new(1)
-[1,2,2,2,3,3,4].each do |data|
-  my_list.insert_end(data)
-end
-my_list.removeDuplicates
-my_list.display
+# my_list = LinkedList.new(1)
+# [1,2,2,2,3,3,4].each do |data|
+#   my_list.insert_end(data)
+# end
+# my_list.removeDuplicates
+# my_list.display
 
 
 

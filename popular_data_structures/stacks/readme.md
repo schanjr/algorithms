@@ -20,4 +20,4 @@ Pushing onto the stack can be implemented by appending a new element to the dyna
 - Has a special property of reversing order for a given stream of inputs, and then outputting the same stream. 
 - Can be implemented as "Undo" storing command for systems. (The "Redo" command would be another stack storing the output of the "Undo" stack) 
 
-![Stacks](./assets/lifo.png)
+![Stacks](./assets/lifo.png) Credits to Wikipedia
