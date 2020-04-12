@@ -8,7 +8,7 @@ class DynamicCircularBuffer
   end
 
   def clear
-    @buffer = Array.new(size)
+    @buffer.clear
     reset_pointers
   end
 
@@ -33,16 +33,33 @@ class DynamicCircularBuffer
   end
 
   def resize
-    # O(n ** 2) - probably can be O(N) if we merge some of the #enumerate logic into here.
+    # O(n)
     old_size = size
     new_array = Array.new(old_size * 2, default = nil)
-    old_array = self.enumerate
-    old_array.each_with_index do |item, index|
-      new_array[index] = item
-    end
-    @buffer = new_array
+    @buffer = populate_new_array(new_array)
     @head_pointer = 0
     @tail_pointer = (old_size - 1)
+  end
+
+  def populate_new_array(new)
+    head = @head_pointer
+    if @head_pointer < @tail_pointer
+      until head == @tail_pointer
+        new[head] = @buffer[head]
+        head += 1
+      end
+    else
+      count = 0
+      head.upto(size - 1) do |index|
+        new[count] = @buffer[index]
+        count += 1
+      end
+      0.upto(@tail_pointer) do |index|
+        new[count] = @buffer[index]
+        count += 1
+      end
+    end
+    new
   end
 
   def enumerate
