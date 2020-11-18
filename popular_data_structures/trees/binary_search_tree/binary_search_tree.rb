@@ -81,6 +81,7 @@ class BST
     return downlevel
   end
 
+  # Breadth first Search algorithms. (Searching on the same level before going to deeper nodes)
   def level_order_queue(root=@root)
     # Add the root into the queue to get things started
     # 1. Remove the first item of the queue an push the data to the accumulating string.
