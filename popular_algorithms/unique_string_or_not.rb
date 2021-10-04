@@ -24,7 +24,7 @@ def bitwise_unique_string?(str)
   true
 end
 
-input = 'abcdefghijklmnop!#@$%^qrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZA'
+input = 'abcdefghijklmnop!#@$%^qrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZAa'
 
 test1 = ['Set', :set_unique_string?]
 test2 = ['Bitwise', :bitwise_unique_string?]
