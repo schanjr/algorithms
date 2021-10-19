@@ -20,6 +20,14 @@ class LinkedList
     @first_node = Node.new(data)
   end
 
+  def reverse(node=first_node)
+    cur, prev = node, nil
+    while cur
+      cur.next, prev, cur = prev, cur, cur.next
+    end
+    self.first_node = prev
+  end
+
   # O(N) to insert to the end
   def insert_end(value)
     new_node = Node.new(value)

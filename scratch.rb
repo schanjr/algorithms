@@ -1,21 +1,32 @@
-# @param {Integer[]} nums
-# @return {Integer}
-def remove_duplicates(nums)
-  if nums.length == 0
-    return 0
-  end
+def rotate(matrix)
+  l, r = 0, matrix.length - 1
+  while l < r
+    0.upto(r - l - 1).each do |i|
+      top, bottom = l, r
 
-  count = 1
+      # save the top left
+      top_left = matrix[top][l + i]
 
-  for i in 1...nums.length
-    if nums[i] != nums[i - 1]
-      nums[count] = nums[i]
-      count += 1
+      # move bottom left to top left
+      matrix[top][l + i] = matrix[bottom - i][l]
+
+      # move bottom right to bottom left
+      matrix[bottom - i][l] = matrix[bottom][r - i]
+
+      # move top right to bottom right
+      matrix[bottom][r - i] = matrix[top + i][r]
+
+      # move previous top left to top right
+      matrix[top + i][r] = top_left
     end
-    puts nums.to_s
+    r -= 1
+    l += 1
   end
-
-  return count
+  matrix
 end
 
-puts remove_duplicates([1,1,1,3,3,3,4,5,6,7,8,9])
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+output = [[7, 4, 1], [8, 5, 2], [9, 6, 3]]
+puts rotate(matrix) == output
+
+
