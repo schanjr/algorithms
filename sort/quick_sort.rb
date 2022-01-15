@@ -24,9 +24,9 @@ class SortableArray
     pivot_position = right_pointer
     pivot = @array[pivot_position]
     # Exclude the pivot from the comparisons
-    right_pointer -= 1
+    # right_pointer -= 1
+    count = 0
     loop do
-      count = 0
       if @array[left_pointer] <= pivot
         left_pointer += 1
       elsif @array[right_pointer] >= pivot
@@ -42,10 +42,8 @@ class SortableArray
         break
       end
       count += 1
-      puts "left_pointer: #{left_pointer}, right_pointer: #{right_pointer}"
       puts "loop #{count}: #{@array.to_s}"
     end
-    puts "After swapping left_pointer: #{left_pointer} right_pointer: #{right_pointer}"
     partition!(0, pivot_position - 1)
     partition!(pivot_position + 1, right_pointer)
   end
@@ -54,6 +52,7 @@ class SortableArray
     temp_value = @array[pointer_1]
     @array[pointer_1] = @array[pointer_2]
     @array[pointer_2] = temp_value
+    puts "swapped #{temp_value} and #{@array[pointer_1]}"
   end
 
   def quick_sort
@@ -64,9 +63,7 @@ class SortableArray
 end
 
 
-ar = [3,2,1,4,5]
+ar = [3,2,1,4,6,5,7,0,8,10,9]
 
 sortable_array = SortableArray.new(ar)
 sortable_array.quick_sort
-
-

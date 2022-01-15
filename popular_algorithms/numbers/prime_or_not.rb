@@ -1,4 +1,4 @@
-require_relative '../support_tools/easy_benchmark'
+require_relative '../support_tools/ls/easy_benchmark'
 # one of the fastest prime or not algorithms.
 # Time complexity: log base 6(n)?
 def prime_or_not_solution_1(num)

@@ -18,18 +18,18 @@ end
 
 # This implementation is memory intensive
 class DoublyLinkedList
-  attr_accessor :first_node, :last_node
+  attr_accessor :head, :last_node
 
   def initialize(data)
-    # You can imagine of @first_node is the node all the way to the left
+    # You can imagine of @head is the node all the way to the left
     # @last_node is all the way to the right.
-    @first_node = Node.new(data)
-    @last_node = @first_node
+    @head = Node.new(data)
+    @last_node = @head
   end
 
   def initial_populate(value)
     new_node = Node.new(value)
-    curr_node = @first_node
+    curr_node = @head
     # First Node will be null
     return new_node if curr_node.nil?
 
@@ -38,16 +38,16 @@ class DoublyLinkedList
     curr_node.next = new_node
     new_node.prev = curr_node
     @last_node = new_node
-    @first_node
+    @head
   end
 
 
   def insert_head(data)
     new_node = Node.new(data)
-    curr_node = @first_node
+    curr_node = @head
     curr_node.prev = new_node
     new_node.next = curr_node
-    @first_node = new_node
+    @head = new_node
   end
 
   def insert_tail(data)
@@ -58,7 +58,7 @@ class DoublyLinkedList
     @last_node = new_node
   end
 
-  def display_next(node = @first_node)
+  def display_next(node = @head)
     current = node
     while current
       print "-(#{current.data})-"
@@ -82,7 +82,7 @@ my_list = DoublyLinkedList.new(0)
 end
 
 my_list.insert_head(33)
-my_list.display_next(my_list.first_node)
+my_list.display_next(my_list.head)
 puts
 my_list.insert_tail(66)
-my_list.display_next(my_list.first_node)
+my_list.display_next(my_list.head)

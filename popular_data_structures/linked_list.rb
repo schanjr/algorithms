@@ -14,59 +14,68 @@ end
 
 # This implementation is memory intensive
 class LinkedList
-  attr_accessor :first_node
+  attr_accessor :head
 
   def initialize(data = nil)
-    @first_node = Node.new(data)
+    @head = Node.new(data)
   end
 
-  def reverse(node=first_node)
+  def reverse_loop(node = head)
     cur, prev = node, nil
     while cur
       cur.next, prev, cur = prev, cur, cur.next
     end
-    self.first_node = prev
+    self.head = prev
+  end
+
+  def reverse_recursive(node = head)
+    return node if node.nil? || node.next.nil?
+    p = reverse_recursive(node.next)
+    node.next.next = node
+    node.next = nil
+    self.head = p
   end
 
   # O(N) to insert to the end
   def insert_end(value)
     new_node = Node.new(value)
-    curr_node = @first_node
+    curr_node = @head
     # First Node will be null
     return new_node if curr_node.nil?
 
     # Go to the last node then, add the next reference.
     curr_node = curr_node.next until curr_node.next.nil?
     curr_node.next = new_node
-    @first_node
+    @head
   end
 
   # O(1)
   def insert_front(value)
     new_node = Node.new(value)
-    new_node.next = @first_node
-    @first_node = new_node
-    @first_node
+    new_node.next = @head
+    @head = new_node
+    @head
   end
 
   # O(1)
   def remove_front
-    node = @first_node
-    @first_node = @first_node.next
+    node = @head
+    @head = @head.next
     node
   end
 
-  def display(head = @first_node)
+  def display(head = @head)
     puts
     current = head
     while current
-      print current.data, " "
+      print(current.data, " ")
       current = current.next
     end
+    puts
   end
 
   def remove_duplicates
-    head = @first_node
+    head = @head
     array = []
     return if head.nil?
     node = head
@@ -83,16 +92,33 @@ class LinkedList
     return head
   end
 
+  def merge_list(l2)
+    self.head = _merge_list(head, l2)
+  end
+
+
+  def _merge_list(l1, l2)
+    if l1.nil? || l2.nil?
+      return l1 || l2
+    end
+    if l1.val < l2.val
+      l1.next = _merge_list(l1.next, l2)
+      l1
+    else
+      l2.next = _merge_list(l1, l2.next)
+      l2
+    end
+  end
 end
 
 # my_list = LinkedList.new(1)
 # [1,2,2,2,3,3,4].each do |data|
 #   my_list.insert_end(data)
 # end
-# my_list.removeDuplicates
 # my_list.display
-
-
+# puts "reversing now:::"
+# my_list.reverse_recursive
+# my_list.display
 
 # https://learning.oreilly.com/library/view/a-common-sense-guide/9781680502794/f_0093.xhtml
 # Linked Lists in Action

@@ -26,10 +26,10 @@ def three_sum(nums)
 end
 
 def subset_sum(numbers, target, partial=[])
-  s = partial.inject 0, :+
+  s = partial.inject(0, :+)
   # check if the partial sum is equals to target
 
-  puts "sum(#{partial})=#{target}" if s == target
+  puts "sum(#{partial})=#{target}" if s == target && partial.length == 3
 
   return if s >= target # if we reach the number why bother to continue
 
@@ -40,10 +40,5 @@ def subset_sum(numbers, target, partial=[])
   end
 end
 
-# nums = [0, 0, 0, 0]
-# nums1 = [-1,0,1,2,-1,-4]
-
-# puts three_sum(nums)
-# puts three_sum(nums1)
 
 subset_sum([3,9,8,4,5,7,10],15)

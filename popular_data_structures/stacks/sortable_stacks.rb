@@ -14,12 +14,12 @@ class SortableStacks < Stacks
       if temp_stack.empty?
         temp_stack.push(node.data)
       else
-        temp_stack_node = temp_stack.first_node
+        temp_stack_node = temp_stack.head
         compared = compare(node.data, temp_stack_node.data)
         # Scenario where current node is smaller than all of the nodes in the temp stack
         if compared <= 0
           node.next = temp_stack_node
-          temp_stack.first_node = node
+          temp_stack.head = node
         else
           # Scenario where the insert of the temp stack is somewhere in the middle, we keep iterating
           # until current node can be put between this node and next node
@@ -32,7 +32,7 @@ class SortableStacks < Stacks
         end
       end
     end
-    @first_node = temp_stack.first_node
+    @head = temp_stack.head
   end
 
   def compare(new_node, temp_stack_node)

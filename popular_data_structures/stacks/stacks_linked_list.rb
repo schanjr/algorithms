@@ -9,11 +9,11 @@ class Stacks < LinkedList
   alias :push :enqueue
 
   def peek
-    return @first_node.data
+    return @head.data
   end
 
   def empty?
-    @first_node.data.nil?
+    @head.data.nil?
   end
 end
 

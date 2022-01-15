@@ -1,5 +1,5 @@
 require 'set'
-require_relative '../support_tools/easy_benchmark'
+require_relative '../../support_tools/easy_benchmark'
 
 
 # Tempting one-liner method
