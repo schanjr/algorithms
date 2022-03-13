@@ -9,7 +9,7 @@
 3. There are no two adjacent red nodes (A red node cannot have a red parent or red child).
 4. Every path from a node (including root) to any of its descendants NULL nodes has the same number of black nodes.
 
-![Example Red Black Tree](Screenshot 2021-09-04 at 6.33.21 PM.png "Red Black Tree")
+![Example Red Black Tree](assets/example_rbt.png)
 
 ## Why Red-Black Trees?
 

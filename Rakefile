@@ -11,10 +11,9 @@ task :list_readme do
 end
 
 task :get_assets do
-  rex = /_.*(png|gif|jpg|jpeg)/
+  rex = /_.*(png|gif|jpg|jpeg|svg)/
   assets = Dir['**/**/**'].select {|x| x =~ rex }.sort
   assets -= Dir['doc/**/**'].select {|x| x =~ rex }.sort
-  puts assets
   assets
 end
 
@@ -25,17 +24,12 @@ YARD::Rake::YardocTask.new do |t|
 end
 
 task :doc do
-  # Rake::Task["list_readme"].invoke
   Rake::Task["yard"].invoke
   cp_r('assets', 'doc/assets')
-  # assets = Rake::Task["get_assets"].invoke.first.call
-  # assets.each do |files|
-  #   folder_arr = files.split('/')
-  #   folder_arr.pop
-  #   folder = "doc/" + folder_arr.join('/')
-  #   FileUtils.mkdir_p(folder) unless File.exists?(folder)
-  #   cp_r(files, "doc/#{files}")
-  # end
+  assets = Rake::Task["get_assets"].invoke.first.call
+  assets.each do |files|
+    cp_r(files, "doc/assets/")
+  end
 end
 
 

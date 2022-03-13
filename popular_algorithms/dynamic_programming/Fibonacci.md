@@ -1,3 +1,4 @@
 Fibonacci Non Optimized Visualization
+![picture](../../assets/fib_non_opt.png)
 
-![picture](https://github.com/schanjr/algorithms/blob/master/assets/fib_non_opt.png)
+![rake doc img](assets/fib_non_opt.png)

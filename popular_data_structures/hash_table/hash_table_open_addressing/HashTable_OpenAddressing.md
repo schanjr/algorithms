@@ -49,4 +49,4 @@ Below are average cases scenario, without going into collisions often.
   insert it there instead.
 
 
-![openAddressing](./assets/openAddressing.gif)
+![openAddressing](assets/openAddressing.gif)
