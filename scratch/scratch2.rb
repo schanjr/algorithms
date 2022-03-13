@@ -1,45 +1,31 @@
-class ListNode
-  attr_accessor :val, :next
-
-  def initialize(val = 0, _next = nil)
-    @val = val
-    @next = _next
+def quick_sort(array, first, last)
+  if first < last
+    j = partition(array, first, last)
+    quick_sort(array, first, j-1)
+    quick_sort(array, j+1, last)
   end
+  array
 end
 
-def is_palindrome(head, match = true)
-  curr_node = head
-  while match && !curr_node.next.nil?
-    tail_val, prev_node = last_node(curr_node)
-    if tail_val == curr_node.val
-      curr_node = curr_node.next
-      prev_node.next = nil
-    else
-      match = false
+def partition(array, first, last)
+  puts "partitioning range: #{first}, #{last}"
+  pivot = array[last]
+  left = first
+  right = first
+  while right < last
+    if array[right] <= pivot
+      array[right], array[left] = array[left], array[right]
+      puts "Swapping inner loop #{array.to_s}"
+      left += 1
     end
+    right += 1
+    puts "left: #{left}, right:#{right}"
   end
-  match
+  array[left], array[last] = array[last], array[left]
+  puts "Swapping exit loop #{array.to_s}"
+  return left
 end
 
-def last_node(head)
-  prev_node = curr_node = head
-  until curr_node.next.nil?
-    prev_node = curr_node
-    curr_node = curr_node.next
-  end
-  [curr_node.val, prev_node]
-end
+arr = [4, 1, 6, 3, 7, 2, 9]
+puts quick_sort(arr, 0, arr.size - 1  )
 
-node5 = ListNode.new(5)
-node4 = ListNode.new(5, node5)
-node3 = ListNode.new(3, node4)
-node2 = ListNode.new(5, node3)
-head = ListNode.new(1, node2)
-
-# node6 = ListNode.new(7)
-# node7 = ListNode.new(4, node6)
-# node8 = ListNode.new(2, node7)
-# node9 = ListNode.new(2, node8)
-# head2 = ListNode.new(1, node9)
-
-puts is_palindrome(head)

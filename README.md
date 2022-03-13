@@ -2,4 +2,8 @@
 [![image info](./assets/bigOCheatSheet.png)](https://www.bigocheatsheet.com/#Common%20Data%20Structure%20Operations)
 
 
-The documentation is not following a standard right now, but I plan to use yard in the future. 
+# Generate and View Documentations (in-progress)
+```bash 
+rake doc
+open doc/index.html
+```

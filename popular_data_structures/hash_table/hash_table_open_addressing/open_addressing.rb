@@ -3,7 +3,6 @@ require_relative 'probe_techniques'
 
 # Might not follow the exact rules of Open Addressing because we
 # resize due to load factor. This is to avoid probing too often.
-
 class OpenAddressing
   attr_reader :probe_formula
 

@@ -1,6 +1,6 @@
 require '../../support_tools/easy_benchmark'
 
-# optimized
+# top down
 def fibm(n, memo = { 0 => 0, 1 => 1 })
   if memo[n].nil?
     memo[n] = fibm(n - 1, memo) + fibm(n - 2, memo)
@@ -10,13 +10,12 @@ def fibm(n, memo = { 0 => 0, 1 => 1 })
 end
 
 # classic answer
-#
 def fibi(n, memo = nil)
   a, b = 0, 1
-  (0..29).each do
+  (2..n).each do
     a, b = b, a + b
   end
-  a
+  b
 end
 
 test1 = ['Optimized', :fibm]

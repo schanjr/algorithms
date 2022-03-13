@@ -1,69 +1,38 @@
-# The left pointer continuously moves one cell to the right until it reaches a value that is greater than or equal to the pivot, and then stops.
-#
-# Then, the right pointer continuously moves one cell to the left until it reaches a value that is less than or equal to the pivot, and then stops.
-#
-# We swap the values that the left and right pointers are pointing to.
-#
-# We continue this process until the pointers are pointing to the very same value or the left pointer has moved to the right of the right pointer.
-#
-# Finally, we swap the pivot with the value that the left pointer is currently pointing to.
-#
-
+# Main Ideas:
+# There is a pivot point chosen. This can be random or just the last element for simplicity.
+# The partition function can optionally return the pivot location at the end of partition loops
+# At the end one partition loop, all elements to the left of the pivot element should be less than the pivot, and sorted.
 # Quick sort is the default sort algorithm for standard libraries.
-class SortableArray
-  attr_reader :array
-
-  def initialize(array)
-    @array = array
+def quick_sort(array, first, last)
+  if first < last
+    j = partition(array, first, last)
+    quick_sort(array, first, j-1)
+    quick_sort(array, j+1, last)
   end
-
-  def partition!(left_pointer, right_pointer)
-    return if right_pointer - left_pointer <= 0
-
-    # We always choose the right most element as the pivot
-    pivot_position = right_pointer
-    pivot = @array[pivot_position]
-    # Exclude the pivot from the comparisons
-    # right_pointer -= 1
-    count = 0
-    loop do
-      if @array[left_pointer] <= pivot
-        left_pointer += 1
-      elsif @array[right_pointer] >= pivot
-        right_pointer -= 1
-      else
-        swap(left_pointer, right_pointer)
-      end
-      if left_pointer >= right_pointer
-        # Don't swap if the pointer value is actually bigger than the left_pointer value
-        break if @array[left_pointer] <= pivot
-
-        swap(left_pointer, pivot_position)
-        break
-      end
-      count += 1
-      puts "loop #{count}: #{@array.to_s}"
-    end
-    partition!(0, pivot_position - 1)
-    partition!(pivot_position + 1, right_pointer)
-  end
-
-  def swap(pointer_1, pointer_2)
-    temp_value = @array[pointer_1]
-    @array[pointer_1] = @array[pointer_2]
-    @array[pointer_2] = temp_value
-    puts "swapped #{temp_value} and #{@array[pointer_1]}"
-  end
-
-  def quick_sort
-    puts "Starting position #{@array.to_s}"
-    partition!(0, (@array.size - 1))
-    puts "Ending position #{@array.to_s}"
-  end
+  array
 end
 
+def partition(array, first, last)
+  puts "partitioning range: #{first}, #{last}"
+  pivot = array[last]
+  left = first
+  right = first
+  while right < last
+    if array[right] <= pivot
+      unless left == right
+        array[right], array[left] = array[left], array[right]
+        puts "Swapping inner loop #{array.to_s}"
+      end
+      left += 1
+    end
+    right += 1
+    puts "left: #{left}, right:#{right}"
+  end
+  array[left], array[last] = array[last], array[left]
+  puts "Swapping exit loop #{array.to_s}"
+  return left
+end
 
-ar = [3,2,1,4,6,5,7,0,8,10,9]
+arr = [4, 1, 6, 2, 3, 7, 8, 0]
+puts quick_sort(arr, 0, arr.size - 1  )
 
-sortable_array = SortableArray.new(ar)
-sortable_array.quick_sort

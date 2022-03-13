@@ -1,32 +1,36 @@
-def rotate(matrix)
-  l, r = 0, matrix.length - 1
-  while l < r
-    0.upto(r - l - 1).each do |i|
-      top, bottom = l, r
-
-      # save the top left
-      top_left = matrix[top][l + i]
-
-      # move bottom left to top left
-      matrix[top][l + i] = matrix[bottom - i][l]
-
-      # move bottom right to bottom left
-      matrix[bottom - i][l] = matrix[bottom][r - i]
-
-      # move top right to bottom right
-      matrix[bottom][r - i] = matrix[top + i][r]
-
-      # move previous top left to top right
-      matrix[top + i][r] = top_left
-    end
-    r -= 1
-    l += 1
-  end
-  matrix
+def find_k(k, arr)
+  quick_sort(arr, 0, arr.size - 1)
+  puts arr.to_s
+  arr[k]
 end
 
-matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-output = [[7, 4, 1], [8, 5, 2], [9, 6, 3]]
-puts rotate(matrix) == output
+def quick_sort(arr, l, r)
+  if l < r
+    p = partition(arr, l, r)
+    quick_sort(arr, l, p - 1)
+    quick_sort(arr, p + 1, r)
+  end
+end
 
+def partition(arr, l, r)
+  pivot = arr[r]
+  i = l - 1
+  i.upto(r) do |j|
+    break if arr[j].nil? || pivot.nil?
+    if arr[j] < pivot
+      i += 1
+      swap(arr, i, j)
+    end
+  end
+
+  swap(arr, i + 1, r)
+  i + 1
+end
+
+def swap(arr, left, right)
+  return if arr[left].nil? || arr[right].nil?
+  arr[left], arr[right] = arr[right], arr[left]
+end
+
+puts find_k(3, [4, 1, 6, 3, 7, 8])
 
