@@ -2,7 +2,6 @@
 
 # Dijkstra’s algorithm (pronounced “dike’ struh”)
 # Also known asTraveling salesman problem
-
 class City
   attr_accessor :name, :routes
 

@@ -1,5 +1,14 @@
 require '../../support_tools/easy_benchmark'
 
+# naive approach
+def naive_fib(n)
+  if n >= 0 and n <= 1
+    n
+  else
+    naive_fib(n - 1) + naive_fib(n - 2)
+  end
+end
+
 # top down
 def fibm(n, memo = { 0 => 0, 1 => 1 })
   if memo[n].nil?
@@ -9,7 +18,7 @@ def fibm(n, memo = { 0 => 0, 1 => 1 })
   memo[n]
 end
 
-# classic answer
+# bottom up
 def fibi(n, memo = nil)
   a, b = 0, 1
   (2..n).each do

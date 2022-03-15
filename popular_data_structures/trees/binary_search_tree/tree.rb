@@ -151,32 +151,35 @@ class Tree
     end
   end
 
+  # Depth First Type Traversal
   # If tree is Binary Search Tree (sorted) then it this will print smallest to biggest
-  def inOrderTraversal(root = @root, memo = [])
+  def in_order_traversal(root = @root, memo = [])
     unless root.nil?
-      inOrderTraversal(root.left, memo)
+      in_order_traversal(root.left, memo)
       memo.push(root.data)
-      inOrderTraversal(root.right, memo)
+      in_order_traversal(root.right, memo)
     end
     memo
   end
 
+  # Depth First Type Traversal
   # This is mentioned on many forums for copying the tree
   # If you think the value is near the root, use this for traversal
-  def preOrderTraversal(root = @root, memo = [])
+  def pre_order_traversal(root = @root, memo = [])
     unless root.nil?
       memo.push(root.data)
-      preOrderTraversal(root.left, memo)
-      preOrderTraversal(root.right, memo)
+      pre_order_traversal(root.left, memo)
+      pre_order_traversal(root.right, memo)
     end
     memo
   end
 
+  # Depth First Type Traversal
   # If you think the value is near the leaves of the root, use this for traversal
-  def postOrderTraversal(root = @root, memo = [])
+  def post_order_traversal(root = @root, memo = [])
     unless root.nil?
-      postOrderTraversal(root.left, memo)
-      postOrderTraversal(root.right, memo)
+      post_order_traversal(root.left, memo)
+      post_order_traversal(root.right, memo)
       memo.push(root.data)
     end
     memo

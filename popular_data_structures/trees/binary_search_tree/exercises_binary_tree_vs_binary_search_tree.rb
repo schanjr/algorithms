@@ -8,15 +8,15 @@ tree.display
 puts "The maximum height is #{tree.max_height}"
 puts "From root to value of 7 , the depth is... #{tree.get_depth(7)}"
 
-puts "In Order Traversal #{tree.inOrderTraversal.to_s}"
-puts "Pre Order Traversal #{tree.preOrderTraversal.to_s}"
-puts "Post Order Traversal #{tree.postOrderTraversal.to_s}"
+puts "In Order Traversal #{tree.in_order_traversal.to_s}"
+puts "Pre Order Traversal #{tree.pre_order_traversal.to_s}"
+puts "Post Order Traversal #{tree.post_order_traversal.to_s}"
 
 puts "Copying Tree..."
 tree2 = Tree.new
-tree2.populate_as_binary_tree(tree.preOrderTraversal)
+tree2.populate_as_binary_tree(tree.pre_order_traversal)
 
-puts "Tree 1 and Tree 2 should be identical via copying preOrderTraversal Algo"
+puts "Tree 1 and Tree 2 should be identical via copying pre_order_traversal Algo"
 puts "Tree 1: #{tree.level_order_queue}"
 puts "Tree 2: #{tree.level_order_queue}"
 

@@ -20,7 +20,7 @@ end
 YARD::Rake::YardocTask.new do |t|
   readme_files = Rake::Task["get_readme"].invoke.first.call
   t.files = ['**/*.rb', '!scratch/**'] # optional
-  t.options = ['--markup-provider=redcarpet', '--markup=markdown', "--main=README.md", "--files=#{readme_files.join(',')}"]
+  t.options = ["--main=README.md", "--files=#{readme_files.join(',')}"]
 end
 
 task :doc do

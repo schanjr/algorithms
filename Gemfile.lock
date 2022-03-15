@@ -2,10 +2,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     bitarray (1.2.0)
-    github-markdown (0.6.9)
     murmurhash3 (0.1.6)
     murmurhash3 (0.1.6-java)
-    redcarpet (3.5.1)
     webrick (1.7.0)
     yard (0.9.27)
       webrick (~> 1.7.0)
@@ -16,9 +14,7 @@ PLATFORMS
 
 DEPENDENCIES
   bitarray
-  github-markdown
   murmurhash3
-  redcarpet
   yard
 
 BUNDLED WITH
