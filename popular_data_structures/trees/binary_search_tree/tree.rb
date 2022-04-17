@@ -10,65 +10,15 @@ end
 class Tree
   attr_reader :root
 
-  def populate_as_binary_tree(array)
-    @root = Node.new(array[0])
-    median = get_median_index(array)
-    @root.left = populate_child_as_binary_tree(array.slice(1, median))
-    @root.right = populate_child_as_binary_tree(array.slice(median + 1, array.size))
-  end
-
-  def populate_child_as_binary_tree(array)
-    return if array.empty?
-
-    node = Node.new(array[0])
-    median = get_median_index(array)
-    left = array.slice(1, median)
-    right = array.slice(median + 1, array.size)
-
-    if left.size > 1
-      node.left = populate_child_as_binary_tree(left)
-    elsif left.size == 1
-      node.left = Node.new(left.shift)
+  def populate_as_bst(nums)
+    if nums.nil? || nums.empty?
+      return nil
     end
-
-    if right.size > 1
-      node.right = populate_child_as_binary_tree(right)
-    elsif right.size == 1
-      node.right = Node.new(right.shift)
-    end
-    node
-  end
-
-  def populate_as_bst(array)
-    tmp = array
-    median = get_median_index(tmp)
-    @root = Node.new(tmp[get_median_index(tmp)])
-
-    # left nodes
-    @root.left = populate_child_as_bst(tmp.slice(0, median))
-
-    # right nodes
-    @root.right = populate_child_as_bst(tmp.slice((median + 1), tmp.size))
-  end
-
-  def populate_child_as_bst(array)
-    median = get_median_index(array)
-    median_node = Node.new(array[median])
-    # left nodes
-    left = array.slice(0, median)
-    # right nodes
-    right = array.slice((median + 1), array.size)
-    if left.size > 1
-      median_node.left = self.populate_child_as_bst(left)
-    elsif left.size == 1
-      median_node.left = Node.new(left.pop)
-    end
-    if right.size > 1
-      median_node.right = self.populate_child_as_bst(right)
-    elsif right.size == 1
-      median_node.right = Node.new(right.pop)
-    end
-    median_node
+    median = (nums.size / 2).floor
+    m_node = Node.new(nums[median])
+    m_node.left = populate_as_bst(nums.slice(0, median))
+    m_node.right = populate_as_bst(nums.slice(median + 1, nums.size))
+    return m_node
   end
 
   def get_median_index(array)

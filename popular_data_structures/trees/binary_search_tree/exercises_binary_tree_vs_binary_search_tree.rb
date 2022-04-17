@@ -14,7 +14,7 @@ puts "Post Order Traversal #{tree.post_order_traversal.to_s}"
 
 puts "Copying Tree..."
 tree2 = Tree.new
-tree2.populate_as_binary_tree(tree.pre_order_traversal)
+tree2.populate_as_bst(tree.pre_order_traversal)
 
 puts "Tree 1 and Tree 2 should be identical via copying pre_order_traversal Algo"
 puts "Tree 1: #{tree.level_order_queue}"

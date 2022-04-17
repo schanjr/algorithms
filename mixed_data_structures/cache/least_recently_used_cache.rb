@@ -1,3 +1,4 @@
+# https://leetcode.com/problems/lru-cache/discuss/352295/Python3-doubly-linked-list-and-dictionary - better solution
 class LRUCache
 
   attr_accessor :size_limit, :data_store, :least_recently_used

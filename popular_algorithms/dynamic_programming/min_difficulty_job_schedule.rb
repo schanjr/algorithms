@@ -42,7 +42,7 @@ module PopularAlgorithms::DynamicProgramming
       end
 
       # fastest solution on LeetCode. Quite smart, creating a Proc on the fly in order to get access to all the variables.
-      def min_difficulty_bottom_up(job_difficulty, d)
+      def min_difficulty_leet_code(job_difficulty, d)
         jobs = job_difficulty
         days = d - 1
         return -1 if jobs.length < days
@@ -55,9 +55,9 @@ module PopularAlgorithms::DynamicProgramming
           if days_remaining == 0
             return jobs.slice(job, jobs.size).max
           end
-          (1..jobs_remaining_for_day).map { |j|
+          (1..jobs_remaining_for_day).map do |j|
             jobs[job..(job + j)].max + rec.call(job + j, day + 1)
-          }.min
+          end.min
         end
 
         rec.call(0, 0)
@@ -67,7 +67,7 @@ module PopularAlgorithms::DynamicProgramming
 end
 
 ns = PopularAlgorithms::DynamicProgramming::MinimumDifficultyOfAJobSchedule
-puts ns.min_difficulty_top_down([7,1,7,1,7,1], 2)
+puts ns.min_difficulty_top_down([7, 1, 7, 1, 7, 1], 2)
 puts ns.min_difficulty_top_down([6, 5, 4, 3, 2, 1], 3)
 puts ns.min_difficulty_top_down([1, 2, 3, 4, 5, 6], 3)
 
