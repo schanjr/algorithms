@@ -1,82 +1,82 @@
 # The Adapter design pattern is a structural design pattern that allows you to adapt one interface to another,
 # allowing classes to work together that couldn't otherwise because of incompatible interfaces.
-# The Adapter design pattern is often used in conjunction with the Bridge design pattern, which decouples an
-# abstraction from its implementation.
+# he Adapter design pattern allows you to adapt the interface of a class to another interface that clients expect.
+# It's used to integrate classes that couldn't be integrated due to incompatible interfaces.
 #
-# Here's a real-world example of how the Adapter design pattern could be used, along with an explanation of how
-# it could be implemented in Ruby code:
+# Imagine you are traveling to a foreign country and you need to charge your phone. You bring your phone charger with you, but the
+# outlet in the hotel room has a different shape than the one you are used to. In order to charge your phone, you need to use an adapter
+# that converts the shape of the outlet to the shape of your charger.
 #
-# Imagine that you are building a system for a coffee shop that serves different types of coffee (e.g. espresso,
-# cappuccino, and latte). The coffee shop has a set of machines for brewing and serving coffee, and you want to
-# be able to add support for new types of coffee without changing the existing machines.
-#
-# To implement this scenario using the Adapter design pattern, you could define an EspressoMachine class that represents
-# a machine for brewing espresso, and a CoffeeMachine class that represents a machine for brewing other types of coffee.
-# The EspressoMachine class has a brew method that takes an EspressoCoffee object and returns a brewed espresso,
-# and the CoffeeMachine class has a brew method that takes a Coffee object and returns a brewed coffee.
-#
-# However, the EspressoMachine and CoffeeMachine classes have incompatible interfaces, so you can't use them together.
-# To solve this problem, you could define an EspressoCoffeeMachineAdapter class that adapts the EspressoMachine class
-# to the CoffeeMachine interface. The EspressoCoffeeMachineAdapter class would have a reference to an EspressoMachine object,
-# and its brew method would take a Coffee object, convert it to an EspressoCoffee object, and delegate to the brew method on
-# the EspressoMachine object.
+# In this example, the adapter is the object that converts the interface of the outlet to the interface of the charger. The outlet is the
+# adaptee, and the charger is the target interface.
 
-# The EspressoMachine class represents a machine for brewing espresso. It has
-# a brew method that takes an EspressoCoffee object and returns a brewed
-# espresso.
-class EspressoMachine
-  def brew(espresso_coffee)
-    puts "Brewing espresso with #{espresso_coffee.beans} beans"
+# The Target defines the domain-specific interface used by the client code.
+class Target
+  # @abstract
+  def request
+    raise NotImplementedError, "#{self.class} has not implemented method '#{__method__}'"
   end
 end
 
-# The CoffeeMachine class represents a machine for brewing other types of
-# coffee. It has a brew method that takes a Coffee object and returns a
-# brewed coffee.
-class CoffeeMachine
-  def brew(coffee)
-    puts "Brewing coffee with #{coffee.beans} beans"
+# The Adaptee contains some useful behavior, but its interface is incompatible
+# with the existing client code. The Adaptee needs some adaptation before the
+# client code can use it.
+class Adaptee
+  def specific_request
+    puts 'Adaptee.specific_request'
   end
 end
 
-# The EspressoCoffeeMachineAdapter class adapts the EspressoMachine class to
-# the CoffeeMachine interface. It has a reference to an EspressoMachine
-# object and its brew method takes a Coffee object, converts it to an
-# EspressoCoffee object, and delegates to the brew method on the
-# EspressoMachine object.
-class EspressoCoffeeMachineAdapter
-  def initialize(espresso_machine)
-    @espresso_machine = espresso_machine
+# The Adapter makes the Adaptee's interface compatible with the Target's
+# interface.
+class Adapter < Target
+  # @param [Adaptee] adaptee
+  def initialize(adaptee)
+    @adaptee = adaptee
   end
 
-  def brew(coffee)
-    espresso_coffee = EspressoCoffee.new(coffee.beans)
-    @espresso_machine.brew(espresso_coffee)
+  def request
+    puts 'Adapter.request'
+    @adaptee.specific_request
   end
 end
 
-# The client code can work with the CoffeeMachine and any adapter that
-# implements the CoffeeMachine interface, allowing it to brew different
-# types of coffee without having to know the details of how each type of
-# coffee is brewed.
-espresso_machine = EspressoMachine.new
-coffee_machine = CoffeeMachine.new
-espresso_coffee_machine_adapter = EspressoCoffeeMachineAdapter.new(espresso_machine)
+# The client code supports all classes that follow the Target interface.
+def client_code(target)
+  target.request
+end
 
-coffee_machine.brew(Coffee.new('Arabica'))
-espresso_coffee_machine_adapter.brew(Coffee.new('Arabica'))
-# In this example, the EspressoMachine class represents a machine for brewing espresso, and the CoffeeMachine class represents a
-# machine for brewing other types of coffee. The EspressoMachine class has a brew method that takes an EspressoCoffee object and
-# returns a brewed espresso, and the CoffeeMachine class has a brew method that takes a Coffee object and returns a brewed coffee.
+# The client code can work with all concrete classes that follow the Target
+# interface.
+puts 'Client code: I can work with the Target objects:'
+target = Target.new
+client_code(target)
+
+adaptee = Adaptee.new
+puts "\nClient code: The Adaptee class has a weird interface. See, I don't understand it:"
+client_code(adaptee)
+
+puts "\nClient code: But I can work with it via the Adapter:"
+adapter = Adapter.new(adaptee)
+client_code(adapter)
+
+# Output:
+# Client code: I can work with the Target objects:
+# NotImplementedError (Target has not implemented method 'request')
 #
-#   However, the EspressoMachine and CoffeeMachine classes have incompatible interfaces, so you can't use them together. To solve
-# this problem, you define an EspressoCoffeeMachineAdapter class that adapts the EspressoMachine class to the CoffeeMachine
-# interface. The EspressoCoffeeMachineAdapter class has a reference to an EspressoMachine object and its brew method takes a
-# Coffee object, converts it to an EspressoCoffee object, and delegates to the brew method on the EspressoMachine object.
+# Client code: The Adaptee class has a weird interface. See, I don't understand it:
+# NoMethodError (undefined method `request' for #<Adaptee:0x00007fa1ce808580>)
 #
-# This allows the client code to work with the CoffeeMachine and any adapter that implements the CoffeeMachine interface, allowing
-# it to brew different types of coffee without having to know the details of how each type of coffee is brewed.
+# Client code: But I can work with it via the Adapter:
+# Adapter.request
+# Adaptee.specific_request
+
+# In this example, the client code is trying to use the Adaptee class, but it has a different interface than the client expects.
+# To make the Adaptee class compatible with the client code, the Adapter class is introduced. The Adapter class has the same interface as
+# the Target class and delegates requests to the Adaptee class.
 #
-# This example demonstrates how the Adapter design pattern can allow classes to work together that couldn't otherwise because
-# of incompatible interfaces, and how it can be used in conjunction with the Bridge design pattern, which decouples an abstraction
-# from its implementation.
+# The client code can work with all concrete classes that follow the Target interface, and it can use the Adapter class to work with the
+# Adaptee class as well.
+
+
+
