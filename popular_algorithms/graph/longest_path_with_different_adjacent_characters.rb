@@ -1,3 +1,6 @@
+# https://leetcode.com/problems/longest-path-with-different-adjacent-characters/
+# Solution summary:
+
 def longest_path(parent, s)
   @maximum = 1
   @letters = s.bytes

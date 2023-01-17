@@ -1,3 +1,7 @@
+# https://leetcode.com/problems/lexicographically-smallest-equivalent-string/
+# @topics algorithms -
+#   - union find
+
 def smallest_equivalent_string(s1, s2, base_str)
   root = (0..25).to_a
 
@@ -20,6 +24,3 @@ def smallest_equivalent_string(s1, s2, base_str)
   base_str.chars.map { |c| (find(c, root) + 'a'.ord).chr }.join
 
 end
-
-smallest_equivalent_string('leetcode', 'programs', 'sourcecode
-')

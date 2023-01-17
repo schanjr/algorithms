@@ -5,73 +5,58 @@ require 'set'
 #   - backtracking
 #   - recursion
 def remove_invalid_parentheses(s)
-  left = 0
-  right = 0
-
-  # First, we find out the number of misplaced left and right parentheses.
-  s.chars.each do |char|
-    # Simply record the left one.
-    if char == '('
-      left += 1
-    elsif char == ')'
-      # If we don't have a matching left, then this is a misplaced right, record it.
-      right = left == 0 ? right + 1 : right
-      # Decrement count of left parentheses because we have found a right
-      # which CAN be a matching one for a left.
-      left = left > 0 ? left - 1 : left
+  # Initialize a queue to store the strings that need to be processed
+  queue = [s]
+  # Initialize a set to store the strings that have already been processed
+  visited = Set.new
+  # Initialize a flag to keep track of whether we have found a valid string
+  found = false
+  results = []
+  # Loop through the queue
+  while !queue.empty? do
+    # Get the next string from the queue
+    str = queue.shift
+    # Check if the string is valid
+    if valid_string?(str)
+      # If it is valid, add it to the results and set the found flag to true
+      found = true
+      results << str
+    end
+    # If we have already found a valid string, we can stop processing the queue
+    next if found
+    # Otherwise, we need to remove one character at a time and add the modified strings to the queue
+    (0...str.length).each do |i|
+      # Only consider removing characters that are parentheses
+      next unless str[i] == '(' || str[i] == ')'
+      # Remove the character at index i
+      modified_str = str[0...i] + str[i+1..-1]
+      # Skip this string if we have already processed it
+      next if visited.include?(modified_str)
+      # Add the modified string to the queue and the visited set
+      queue << modified_str
+      visited.add(modified_str)
     end
   end
-  result = {}
 
-  # @param s the original string
-  # @param index current index
-  # @param left_count
-  # @param right_count
-  # @param left_rem
-  # @param right_rem
-  # @param expr recursed working set of strings
-  recurse = lambda do |s, index, left_count, right_count, left_rem, right_rem, expr|
-    # If we reached the end of the string, just check if the resulting expression is
-    # valid or not and also if we have removed the total number of left and right
-    # parentheses that we should have removed.
-    if index == s.size
-      if left_rem == 0 && right_rem == 0
-        ans = expr.join('')
-        result[ans] = 1
-      end
-    else
-      # The discard case. Note that here we have our pruning condition.
-      # We don't recurse if the remaining count for that parenthesis is == 0.
-      if (s[index] == '(' && left_rem > 0) || (s[index] == ')' && right_rem > 0)
-        left_r, right_r = left_rem, right_rem
-        if s[index] == '('
-          left_r = left_rem - 1
-        end
-        if s[index] == ')'
-          right_r = right_rem - 1
-        end
-        recurse.call(s, index + 1, left_count, right_count, left_r, right_r, expr)
-      end
-      expr.append(s[index])
-      # Simply recurse one step further if the current character is not a parenthesis.
-      if s[index] != '(' && s[index] != ')'
-        recurse.call(s, index + 1, left_count, right_count, left_rem, right_rem, expr)
+  # Return the results
+  results
+end
 
-      elsif s[index] == '('
-        # Consider an opening bracket.
-        recurse.call(s, index + 1, left_count + 1, right_count, left_rem, right_rem, expr)
-      elsif s[index] == ')' && left_count > right_count
-        # Consider a closing bracket.
-        recurse.call(s, index + 1, left_count, right_count + 1, left_rem, right_rem, expr)
-      end
-      # Pop for backtracking.
-      expr.pop
-    end
+# This helper function checks if a string is valid
+def valid_string?(str)
+  # Initialize a counter to keep track of the number of open parentheses
+  counter = 0
+  # Loop through the characters in the string
+  str.each_char do |c|
+    # If we encounter an open parenthesis, increment the counter
+    counter += 1 if c == '('
+    # If we encounter a close parenthesis, decrement the counter
+    counter -= 1 if c == ')'
+    # If the counter becomes negative, the string is invalid
+    return false if counter < 0
   end
-  # Now, the left and right variables tell us the number of misplaced left and
-  # right parentheses and that greatly helps pruning the recursion.
-  recurse.call(s, 0, 0, 0, left, right, [])
-  result.keys
+  # If the counter is not zero, the string is invalid
+  return counter == 0
 end
 
 # puts remove_invalid_parentheses(")(f")

@@ -1,28 +1,14 @@
-require 'set'
-
-def longest_valid_parentheses(s)
-  balanced = -1
-  longest = left_most = 0
-  s.chars.each_with_index do |char, idx|
-    if char == '('
-      left_most = idx
-      break
+def min_flips_mono_incr(s)
+  cur = s.count('0')
+  ans = cur
+  s.each_char do |c|
+    if c == '0'
+      cur -= 1
+    else
+      cur += 1
     end
+    ans = cur if ans > cur
   end
-  index = left_most + 1
-  while index < s.size do
-    char = s[index]
-    if char == '('
-      balanced -= 1
-    elsif char == ')'
-      balanced += 1
-    end
-    if balanced == 0
-      longest = (index + 1) - left_most
-    end
-    index += 1
-  end
-  longest
+  ans
 end
 
-puts longest_valid_parentheses("(()")

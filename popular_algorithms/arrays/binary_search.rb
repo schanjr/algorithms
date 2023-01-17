@@ -24,6 +24,24 @@ def partition(arr, start, last, val)
   end
 end
 
+def lo_hi_binary_search(arr, target)
+  low = 0
+  high = arr.length - 1
+
+  while low <= high
+    mid = (low + high) / 2
+    if arr[mid] == target
+      return mid
+    elsif arr[mid] < target
+      low = mid + 1
+    else
+      high = mid - 1
+    end
+  end
+
+  return -1
+end
+
 
 arr = [1, 2, 3, 4, 5, 6]
 
@@ -37,3 +55,5 @@ puts binary_search(arr, 9) == -1
 puts binary_search(arr, 2) == 1
 # happy path
 puts binary_search(arr, 3) == 2
+
+puts lo_hi_binary_search(arr, 6)
