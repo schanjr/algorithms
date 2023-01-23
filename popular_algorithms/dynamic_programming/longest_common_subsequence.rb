@@ -3,7 +3,9 @@
 
 def longest_common_subsequence(text1, text2)
   memo = Array.new(text1.size) { Array.new(text2.size) }
-  dp(text1, text2, 0, 0, memo)
+  res = dp(text1, text2, 0, 0, memo)
+  puts
+  res
 end
 
 def dp(text1, text2, i, j, memo)
@@ -23,4 +25,4 @@ def dp(text1, text2, i, j, memo)
   end
 end
 
-puts longest_common_subsequence('abcdefg', 'aace')
+puts longest_common_subsequence('bacdefg', 'aace')

@@ -18,4 +18,4 @@ def generator(nums, left, right, results )
 end
 
 
-permute([1,2,3])
+puts permute([1,2,3]).to_s

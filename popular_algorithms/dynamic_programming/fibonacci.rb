@@ -1,4 +1,4 @@
-require '../../support_tools/easy_benchmark'
+require './support_tools/easy_benchmark'
 
 # naive approach
 def naive_fib(n)

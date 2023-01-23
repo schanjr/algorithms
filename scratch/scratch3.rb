@@ -33,3 +33,5 @@ parent = [-1,0,0,1,1,2]
 s = "abacbe"
 
 puts longest_path(parent, s)
+
+
