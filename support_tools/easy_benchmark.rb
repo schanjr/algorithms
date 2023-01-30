@@ -14,8 +14,8 @@ module EasyBenchmark
     def benchmark_time(test_cases, *input)
       Benchmark.bm do |bm|
         test_cases.each do |test|
-          description = test[0]
-          test_method = test[1]
+          description = test.to_s
+          test_method = test.to_sym
           bm.report(description) do
             iterations.times do
               send(test_method, *input)

@@ -2,6 +2,25 @@
 
 # Dijkstra’s algorithm (pronounced “dike’ struh”)
 # Also known asTraveling salesman problem
+# https://www.youtube.com/watch?v=pVfj6mxhdMw
+#
+#
+## Start ##
+# Let distance of start vertex from start vertex = 0
+# Let distance of all other vertices from start = infinity
+
+## Algorithm ##
+# WHILE vertices remain unvisited
+#   Visit unvisited vertex with the smallest known distance from the start vertex (call this the current vertex)
+#   FOR each unvisited neighbour of the currente vertex
+#     Calculate the distance from the start vertex
+#     If the calculated distance of this vertex is less than the known distance
+#       Update the shortest distance of this vertex
+#       Update the previous vertex with the current vertex
+#     end if
+#     NEXT unvisited neighbour
+#     Add the current vertex to the list of visited vertices
+# END WHILE
 class City
   attr_accessor :name, :routes
 
