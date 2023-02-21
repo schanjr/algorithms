@@ -1,4 +1,4 @@
-# https://www.youtube.com/watch?v=mBNrRy2_hVs&t=1s
+# https://leetcode.com/problems/single-element-in-a-sorted-array/description/
 require "./support_tools/easy_benchmark"
 
 

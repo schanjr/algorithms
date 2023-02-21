@@ -1,37 +1,30 @@
-def longest_path(parent, s)
-  @maximum = 1
-  @letters = s.bytes
-  @tree = build_tree(parent)
-  count_long_path(0, 0)
-  @maximum
-end
-
-def count_long_path(node_index, char)
-  child_nodes = @tree[node_index]
-  paths = child_nodes.map { |child_index| count_long_path(child_index, @letters[node_index]) }.max(2)
-  local_maximum = 1 + paths.sum
-  @maximum = local_maximum if local_maximum > @maximum
-  return 0 if @letters[node_index] == char
-
-  1 + paths.max.to_i
-end
-
-def build_tree(list)
-  tree = { -1 => [] }
-  list.each.with_index do |parent, index|
-    if tree.key?(parent)
-      tree[parent] << index
-    else
-      tree[parent] = [index]
-    end
-    tree[index] ||= []
+# def add_to_array_form(num, k)
+#   leftover = 0
+#   k = k.to_s
+#   k_index = k.size - 1
+#   (num.size - 1).downto(0).each do |index|
+#     break if k_index < 0
+#     number = num[index] + k[k_index].to_i + leftover
+#     if number > 9
+#       leftover = 1
+#       ones_place = number.to_s[-1]
+#       num[index] = ones_place.to_i
+#     else
+#       num[index] = number
+#       leftover = 0
+#     end
+#     k_index -= 1
+#   end
+#   num.unshift(leftover) if leftover > 0
+#   num
+# end
+def add_to_array_form(num, k)
+  final = num.join.to_i + k
+  output = []
+  final.to_s.each_char do |num|
+    output << num.to_i
   end
-  tree
+  output
 end
 
-parent = [-1,0,0,1,1,2]
-s = "abacbe"
-
-puts longest_path(parent, s)
-
-
+puts add_to_array_form([2,1,5], 806).to_s

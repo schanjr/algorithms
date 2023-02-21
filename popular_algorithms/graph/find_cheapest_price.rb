@@ -87,6 +87,7 @@ dst = 4
 k = 1
 params = [n, flights, src, dst, k]
 
-puts dijkstra_find_cheapest_price(*params)
+# puts dijkstra_find_cheapest_price(*params)
+puts bellman_ford_find_cheapest_price(*params)
 # EasyBenchmark.iterations = 100
 # EasyBenchmark.benchmark_time(["bellman_ford_find_cheapest_price", "dijkstra_find_cheapest_price"], *params)

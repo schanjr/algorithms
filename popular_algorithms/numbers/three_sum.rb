@@ -14,4 +14,4 @@ def subset_sum(numbers, target, partial=[])
 end
 
 
-subset_sum([3,9,8,4,5,7,10],15)
+subset_sum(w[3,9,8,4,5,7,10],15)
