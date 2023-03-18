@@ -23,7 +23,7 @@ def reverse_linked_list_alternative(head)
   curr = head
   while curr
     # rev, rev.next, curr = curr, rev, curr.next # Very clever, but hard to understand.
-    # We just need to make sure curr.next is updated before curr
+    # We just need to make sure curr is assigned before curr
     # rev, curr.next, curr = curr, rev, curr.next # works
     curr.next, rev, curr = rev, curr, curr.next # works
     # curr, rev, curr.next = curr.next, curr, rev # doesn't work

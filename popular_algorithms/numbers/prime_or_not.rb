@@ -1,4 +1,4 @@
-require_relative '../support_tools/ls/easy_benchmark'
+# require_relative './support_tools/easy_benchmark'
 # one of the fastest prime or not algorithms.
 # Time complexity: log base 6(n)?
 def polynomial_prime?(n)
@@ -18,7 +18,7 @@ end
 # https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
 # sieves prime method
 def sieves_primes(max)
-  nums = Array.new(max + 1, 1)
+  nums = Array.new(max, 1)
   nums[0] = nums[1] = 0
 
   (2..Math.sqrt(max)).each do |sieve|
@@ -29,7 +29,34 @@ def sieves_primes(max)
     end
   end
 
-  (2..max).select { |num| nums[num] == 1 }
+  primes = (2..max).select { |num| nums[num] == 1 }
+  primes.size
+end
+
+def sieve_of_eratosthenes(n)
+  bool = Array.new(n, true)
+  bool[0], bool[1] = false, false
+
+  tmp = Math.sqrt(n).to_i
+
+  (2..tmp).each do |i|
+    if bool[i]
+      (i**2...n).step(i) {|j| bool[j] = false}
+    end
+  end
+
+  count = 0
+  bool.each {|b| if b; count += 1 end}
+  return count
+end
+
+(1..100).each do |n|
+  sp = sieves_primes(n)
+  soe = sieve_of_eratosthenes(n)
+  if sp != soe
+    puts "sieve_primes result: #{sp}"
+    puts "sieve_of_eratosthenes result: #{soe}"
+  end
 end
 
 #
