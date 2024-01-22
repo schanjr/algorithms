@@ -1,13 +1,18 @@
-def rob(nums)
-  prev = curr = 0
-  nums.each do |num|
-    temp = prev # This represents the nums[i-2]th value
-    prev = curr # This represents the nums[i-1]th value
-    curr = [num + temp, prev].max # Here we just plug into the formula
+def can_make_arithmetic_progression(arr)
+  diff = arr[0] - arr[1]
+  index = 0
+  reversed_arr = arr.reverse
+  reverse_diff = arr[0] - arr[1]
+  while index < arr.size - 2 do
+    new_diff = arr[index] - arr[index + 1]
+    return false if diff != new_diff
+
+    new_reverse_diff = reversed_arr[index] - reversed_arr[index + 1]
+    return false if new_reverse_diff != reverse_diff
+
+    index += 1
   end
-  curr
+  true
 end
 
-# puts rob([1,2,3,1])
-puts rob([2,7,9,3,1])
-# puts rob([1,3,1])
+puts can_make_arithmetic_progression([3,5,1])

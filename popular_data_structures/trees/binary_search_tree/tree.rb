@@ -10,7 +10,7 @@ end
 class Tree
   attr_reader :root
 
-  def populate_as_bst(nums)
+  def _populate_as_bst(nums)
     if nums.nil? || nums.empty?
       return nil
     end
@@ -19,6 +19,10 @@ class Tree
     m_node.left = populate_as_bst(nums.slice(0, median))
     m_node.right = populate_as_bst(nums.slice(median + 1, nums.size))
     return m_node
+  end
+
+  def populate_as_bst(nums)
+    @root = _populate_as_bst(nums)
   end
 
   def get_median_index(array)
@@ -80,9 +84,9 @@ class Tree
     current_node = @root
     data = {}
     data[current_level] = [current_node]
-    until data[current_level].nil?
+    while data[current_level]
       data[current_level].each do |node|
-        left_right = [node.left, node.right].compact
+        left_right = [node&.left, node&.right].compact
         next if left_right.empty?
 
         data[current_level + 1] ||= []
@@ -97,7 +101,7 @@ class Tree
     puts "Displaying Level Order"
     data = level_order_hash
     data.each_with_index do |val, index|
-      puts "Level #{index}: #{data[index].map(&:data)}"
+      puts "Level #{index}: #{data[index]&.map(&:data)}"
     end
   end
 
