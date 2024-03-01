@@ -4,9 +4,7 @@ GEM
     bitarray (1.2.0)
     murmurhash3 (0.1.6)
     murmurhash3 (0.1.6-java)
-    webrick (1.7.0)
-    yard (0.9.27)
-      webrick (~> 1.7.0)
+    yard (0.9.36)
 
 PLATFORMS
   java
